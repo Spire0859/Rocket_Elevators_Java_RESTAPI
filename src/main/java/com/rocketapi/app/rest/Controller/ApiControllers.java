@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-
 
 
 @RestController
@@ -85,8 +83,11 @@ public class ApiControllers {
     }
 
     @GetMapping(value = "/Interventions/{id}")
-    public Optional<Interventions> getInterventionsByID(@PathVariable long id){
-        return interventionsRepo.findById(id);
+    public Interventions getInterventionsByID(@PathVariable long id){
+        System.out.println("meoww");
+        System.out.println(interventionsRepo.findById(id));
+        System.out.println("meoww");
+        return interventionsRepo.findById(id).get();
     }
 
     @PostMapping(value = "/Interventions/save")
