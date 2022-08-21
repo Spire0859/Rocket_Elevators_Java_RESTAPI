@@ -11,7 +11,7 @@ public class Columns {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     @Column
     private String types;
     @Column
@@ -32,12 +32,12 @@ public class Columns {
     private int battery_id;
 
 
-    public int getId()
+    public long getId()
     {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
 
         this.id = id;
     }

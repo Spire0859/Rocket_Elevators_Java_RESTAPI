@@ -41,6 +41,11 @@ public class ApiControllers {
         return userRepo.findAll();
     }
 
+    @GetMapping(value = "/Users/{id}")
+    public Users getUserByID(@PathVariable int id){
+
+        return userRepo.findById(id).get();
+    }
 
     @GetMapping(value = "/Addresses")
     public List<Addresses> getAddresses(){
@@ -54,22 +59,38 @@ public class ApiControllers {
         return batteriesRepo.findAll();
     }
 
+    @GetMapping(value = "/Batteries/{id}")
+    public Batteries getBatterieByID(@PathVariable long id){
+        return batteriesRepo.findById(id).get();
+    }
+
     @GetMapping(value = "/Buildings")
     public List<Buildings> getBuildings(){
 
         return buildingsRepo.findAll();
     }
 
+    @GetMapping(value = "/Buildings/{id}")
+    public Buildings getBuildingByID(@PathVariable long id){
+        return buildingsRepo.findById(id).get();
+    }
 
 
-    @GetMapping(value = "/InterventionsUpdate/{id}")
+
+    @PutMapping(value = "/InterventionsUpdate/{id}")
     public String updateInterventions(@PathVariable long id,@RequestBody Interventions interventions){
              Interventions UpdatedIn = interventionsRepo.findById(id).get();
+             UpdatedIn.setStatus(interventions.getStatus());
+             UpdatedIn.setResult(interventions.getResult());
+             UpdatedIn.setReport(interventions.getReport());
+             UpdatedIn.setInterventionDateStart(interventions.getInterventionDateStart());
+             UpdatedIn.setInterventionDateEnd(interventions.getInterventionDateEnd());
              UpdatedIn.setEmployee_id(interventions.getEmployee_id());
              UpdatedIn.setBuilding_id(interventions.getBuilding_id());
              UpdatedIn.setBattery_id(interventions.getBattery_id());
              UpdatedIn.setColumn_id(interventions.getColumn_id());
              UpdatedIn.setElevator_id(interventions.getElevator_id());
+             interventionsRepo.save(UpdatedIn);
 
 
             return "intervention: " + id + " updated successfully !";
@@ -84,9 +105,6 @@ public class ApiControllers {
 
     @GetMapping(value = "/Interventions/{id}")
     public Interventions getInterventionsByID(@PathVariable long id){
-        System.out.println("meoww");
-        System.out.println(interventionsRepo.findById(id));
-        System.out.println("meoww");
         return interventionsRepo.findById(id).get();
     }
 
@@ -114,13 +132,40 @@ public class ApiControllers {
         return customersRepo.findAll();
     }
 
+    @PostMapping(value = "/Customers/save")
+    public String saveCustomers(@RequestBody Customers customers){
+
+        customersRepo.save(customers);
+
+        return "Successfully saved new interventions!";
+    }
+
+    @GetMapping(value = "/Customers/{id}")
+    public Customers getCustomerByID(@PathVariable long id){
+
+        return customersRepo.findById(id).get();
+    }
+
+
     @GetMapping(value = "/Elevators")
     public List<Elevators> getElevators(){
+        
         return elevatorsRepo.findAll();
     }
+    @GetMapping(value = "/Elevators/{id}")
+    public Elevators getElevatorByID(@PathVariable long id){
+        return elevatorsRepo.findById(id).get();
+    }
+
 
     @GetMapping(value = "/Columns")
     public List<Columns> getColumns(){
+        
         return columnsRepo.findAll();
+    }
+
+    @GetMapping(value = "/Columns/{id}")
+    public Columns getColumnByID(@PathVariable long id){
+        return columnsRepo.findById(id).get();
     }
 }

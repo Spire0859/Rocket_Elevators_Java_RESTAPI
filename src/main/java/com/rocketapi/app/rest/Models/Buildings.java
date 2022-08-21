@@ -12,7 +12,7 @@ public class Buildings {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     @Column
     private String addressOfBuilding;
     @Column
@@ -39,11 +39,11 @@ public class Buildings {
     private int customer_id;
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
